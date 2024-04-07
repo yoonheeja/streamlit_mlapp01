@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-st.title('뉴욕시의 Uber 픽업')
+st.title('Uber pickups in NYC')
 
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
@@ -20,27 +20,27 @@ def load_data(nrows):
 
 
 # 텍스트 요소 생성. 사용자에게 데이터가 로드 되고 있음을 알린다.
-data_load_state = st.text('데이터 로딩 중...')
+data_load_state = st.text('Loading data...')
 
 # 10000개의 행의 데이터를 로드한다.
 data = load_data(10000)
 
 # 데이터가 성공적으로 로드 되었음을 알린다.
-data_load_state.text('데이터 로딩 완료!')
+data_load_state.text('Loading data...done!')
 
 # 부제목 만들기
-st.subheader('원본 데이터')
+st.subheader('Raw data')
 st.write(data)
 
-# 지도 표시
-# st.subheader('Map of all pickups')
-# st.map(data)
+# seaborn을 사용하여 히스토그램 그리기
+st.subheader('Number of pickups by hour')
 
-# 시간표 지도 표시
-# hour_to_filter = 17
-
-hour_to_filter = st.slider('hour', 0, 23, 17) 
-filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
-
-st.subheader(f'Map of all pickups at {hour_to_filter}:00')
-st.map(filtered_data)
+# Seaborn을 사용하여 히스토그램 그리기
+plt.figure(figsize=(10, 6))
+sns.histplot(data=data, x=data[DATE_COLUMN].dt.hour, bins=24, kde=False)
+plt.xlabel('Hour')
+plt.ylabel('Number of Pickups')
+plt.title('Number of Pickups by Hour')
+fig, ax = plt.subplots()
+ax.hist(data[DATE_COLUMN].dt.hour, bins=24)
+st.pyplot(fig)

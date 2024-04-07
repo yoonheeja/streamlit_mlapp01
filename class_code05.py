@@ -32,15 +32,15 @@ data_load_state.text('데이터 로딩 완료!')
 st.subheader('원본 데이터')
 st.write(data)
 
-# 지도 표시
-# st.subheader('Map of all pickups')
-# st.map(data)
+# seaborn을 사용하여 히스토그램 그리기
+st.subheader('시간대별 픽업 횟수')
 
-# 시간표 지도 표시
-# hour_to_filter = 17
-
-hour_to_filter = st.slider('hour', 0, 23, 17) 
-filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
-
-st.subheader(f'Map of all pickups at {hour_to_filter}:00')
-st.map(filtered_data)
+# Seaborn을 사용하여 히스토그램 그리기
+plt.figure(figsize=(10, 6))
+sns.histplot(data=data, x=data[DATE_COLUMN].dt.hour, bins=24, kde=False)
+plt.xlabel('시간')
+plt.ylabel('픽업 횟수')
+plt.title('시간대별 픽업 횟수')
+fig, ax = plt.subplots()
+ax.hist(data[DATE_COLUMN].dt.hour, bins=24)
+st.pyplot(fig)
