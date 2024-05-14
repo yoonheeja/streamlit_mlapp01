@@ -3,7 +3,7 @@
 import streamlit as st
 from langchain.llms import OpenAI
 
-st.title('🦜🔗 채팅앱')
+st.title('🍎🍐🍊 나의 AI Chat 🥝🍅🍆')
 
 openai_api_key = st.sidebar.text_input('OpenAI API Key')
 
@@ -12,7 +12,7 @@ def generate_response(input_text):
   st.info(llm(input_text))
 
 with st.form('my_form'):
-  text = st.text_area('Enter text:', 'What are the three key pieces of advice for learning how to code?')
+  text = st.text_area('Enter text:', '무엇을 도와드릴까요?')
   submitted = st.form_submit_button('Submit')
   if not openai_api_key.startswith('sk-'):
     st.warning('OpenAI API 인증키를 입력해 주세요!', icon='⚠')
