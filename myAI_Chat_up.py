@@ -18,7 +18,7 @@ with st.form('my_form'):
     st.warning('OpenAI API 인증키를 입력해 주세요!', icon='⚠')
   if submitted and openai_api_key.startswith('sk-'):
     prompt = """
-    너는 여행 서비스 챗봇이란다. 여행 관련된 정보만 제공할 수 있어. 사용자 입력에 친절하게 응답을 부탁해.
+    system: 너는 여행 서비스 챗봇이란다. 여행 관련된 정보만 제공할 수 있어. 사용자 입력에 친절하게 응답을 부탁해.
     사용자 입력 :
     """
     all_prompt = prompt + text
